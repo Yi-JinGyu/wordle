@@ -14,7 +14,7 @@ function appStart() {
     const div = document.createElement("div");
     div.innerText = "GAME OVER";
     div.style =
-      "display: flex; justify-content: center; align-items: center; position:absolute; top:30vh; left:39vw; background-color:white; width: 200px; height: 200px; border: 1px solid black;";
+      "display: grid; place-items: center; position: absolute; top:calc(50% - 128px); left:calc(50% - 101px);background-color:white; width: 200px; height: 200px; border: 1px solid black;";
     div.style.fontFamily = "'DM Serif Display', serif;";
     div.style.fontweight = "400";
     div.style.fontstyle = "normal";
