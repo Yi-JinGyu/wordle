@@ -3,15 +3,22 @@ const 정답 = "APPLE";
 let attempts = 0;
 let index = 0;
 let timer;
+const 정답색 = "rgb(106, 170, 100)";
+const 보조색 = "rgb(201, 180, 88)";
+const 오답색 = "rgb(120, 124, 126)";
 
 //앱 시작
 function appStart() {
   //게임오버 출력
   const displayGameover = () => {
     const div = document.createElement("div");
-    div.innerText = "게임이 종료됐습니다.";
+    div.innerText = "GAME OVER";
     div.style =
-      "display: flex; justify-content: center; align-items: center; position:absolute; top:30vh; left:35vw; background-color:white; width: 200px; height: 200px;";
+      "display: flex; justify-content: center; align-items: center; position:absolute; top:30vh; left:39vw; background-color:white; width: 200px; height: 200px; border: 1px solid black;";
+    div.style.fontFamily = "'DM Serif Display', serif;";
+    div.style.fontweight = "400";
+    div.style.fontstyle = "normal";
+    div.style.fontSize = "30px";
     document.body.appendChild(div);
   };
   // 게임오버
@@ -36,13 +43,27 @@ function appStart() {
         `.board-column[data-index='${attempts}${i}']`
       );
       const 입력한_글자 = block.innerText;
+      const 키보드 = document.querySelector(
+        `.keyboard-column[data-key='${입력한_글자}']`
+      );
       const 정답_글자 = 정답[i];
       if (입력한_글자 === 정답_글자) {
         맞은_갯수 += 1;
-        block.style.background = "#6AAA64";
-      } else if (정답.includes(입력한_글자)) block.style.background = "#C9B458";
-      else block.style.background = "#787C7E";
-      console.log("입력한 글자 : ", 입력한_글자, "정답 글자 : ", 정답_글자);
+        block.style.background = 정답색;
+        키보드.style.background = 정답색;
+      } else if (정답.includes(입력한_글자)) {
+        block.style.background = 보조색;
+        if (키보드.style.background != 정답색) 키보드.style.background = 보조색;
+      } else {
+        block.style.background = 오답색;
+        if (
+          키보드.style.background != 정답색 ||
+          키보드.style.background != 보조색
+        )
+          키보드.style.background = 오답색;
+      }
+
+      // console.log("입력한 글자 : ", 입력한_글자, "정답 글자 : ", 정답_글자);
     }
     if (맞은_갯수 === 5) gameover();
     nextLine();
@@ -59,25 +80,39 @@ function appStart() {
     if (index !== 0) index -= 1;
   };
 
+  // 마우스 입력
+  const handleMousedown = () => {
+    const 테스트 = document.querySelector(".keyboard-column:hover");
+    if (테스트 != null) {
+      const mousekey = 테스트.getAttribute("data-key");
+      const mousekeyCode = 테스트.getAttribute("data-key").charCodeAt();
+      handlejudge(mousekey, mousekeyCode);
+    }
+  };
+
   // 키 입력
   const handleKeydown = (event) => {
-    const key = event.key.toUpperCase();
+    const key = event.key;
     const keyCode = event.keyCode;
+    handlejudge(key, keyCode);
+  };
+
+  //판단
+  const handlejudge = (key, keyCode) => {
     const thisBlock = document.querySelector(
       `.board-column[data-index='${attempts}${index}']`
     );
 
-    // 입력판단
-    if (event.key === "Backspace") handleBackspace();
+    if (key === "Backspace") handleBackspace();
     else if (index === 5) {
-      if (event.key === "Enter") handleEnterKey();
+      if (key === "Enter") handleEnterKey();
       else return;
-    } else if (65 <= keyCode && keyCode <= 90) {
-      thisBlock.innerText = key;
+    } else if (65 <= keyCode && keyCode <= 90 && key != "Enter") {
+      thisBlock.innerText = key.toUpperCase();
       index = index + 1;
     }
   };
-
+  //타이머
   const startTimer = () => {
     const 시작_시간 = new Date();
 
@@ -91,10 +126,12 @@ function appStart() {
     }
 
     timer = setInterval(setTime, 1000);
-    console.log(timer);
+    // console.log(timer);
   };
 
+  // 메인
   startTimer();
+  window.addEventListener("click", handleMousedown);
   window.addEventListener("keydown", handleKeydown);
 }
 

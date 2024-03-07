@@ -4,14 +4,41 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wordle!</title>
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <header>
-      <!-- self -->
+      <div class="header-bar">
+        <div class="header-bar__menu">
+          <div class="header-bar__menu_img">
+            <img src="asset/menu.svg" />
+          </div>
+        </div>
+        <div id="title">Wordle</div>
+        <div class="header-bar__stat">
+          <div class="header-bar__stat-img">
+            <img src="asset/question.svg" />
+          </div>
+          <div class="header-bar__stat-img">
+            <img src="asset/chart.svg" />
+          </div>
+          <div class="header-bar__stat-img">
+            <img src="asset/setting.svg" />
+          </div>
+        </div>
+      </div>
     </header>
+
     <main>
-      <div id="timer">00:00</div>
+      <div id="timer">
+        <span>00:00</span>
+      </div>
       <div class="board-row row-0">
         <div class="board-column" data-index="00"></div>
         <div class="board-column" data-index="01"></div>
@@ -55,6 +82,7 @@
         <div class="board-column" data-index="54"></div>
       </div>
     </main>
+
     <footer>
       <div class="keyboard-row row-0">
         <div class="keyboard-column" data-key="Q">Q</div>
@@ -80,7 +108,7 @@
         <div class="keyboard-column" data-key="L">L</div>
       </div>
       <div class="keyboard-row row-2">
-        <div class="keyboard-column wide" data-key="ENTER">ENTER</div>
+        <div class="keyboard-column wide" data-key="Enter">ENTER</div>
         <div class="keyboard-column" data-key="Z">Z</div>
         <div class="keyboard-column" data-key="X">X</div>
         <div class="keyboard-column" data-key="C">C</div>
@@ -88,20 +116,28 @@
         <div class="keyboard-column" data-key="B">B</div>
         <div class="keyboard-column" data-key="N">N</div>
         <div class="keyboard-column" data-key="M">M</div>
-        <div class="keyboard-column wide" data-key="BACK">
+        <div class="keyboard-column wide" data-key="Backspace">
           <div class="back-space-icon">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
+              width="70px"
+              height="40px"
               viewBox="0 0 24 24"
               stroke-width="1.5"
-              stroke="#000"
+              stroke="currentColor"
               class="w-6 h-6"
-            ></svg>
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 9.75 14.25 12m0 0 2.25 2.25M14.25 12l2.25-2.25M14.25 12 12 14.25m-2.58 4.92-6.374-6.375a1.125 1.125 0 0 1 0-1.59L9.42 4.83c.21-.211.497-.33.795-.33H19.5a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25h-9.284c-.298 0-.585-.119-.795-.33Z"
+              />
+            </svg>
           </div>
         </div>
       </div>
     </footer>
-    <script src="js/index.js"></script>
+    <script src="js/app.js"></script>
   </body>
 </html>
