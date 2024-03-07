@@ -65,7 +65,37 @@ function appStart() {
 
       // console.log("입력한 글자 : ", 입력한_글자, "정답 글자 : ", 정답_글자);
     }
-    if (맞은_갯수 === 5) gameover();
+
+    if (맞은_갯수 === 5) {
+      document.querySelector(`.board-row-${attempts}`).animate(
+        {
+          transform: ["rotateX(360deg)"],
+        },
+        {
+          duration: 800, // 밀리초 지정
+          fill: "forwards", // 종료 시 속성을 지님
+          easing: "linear", // 가속도 종류
+        }
+      );
+      gameover();
+    } else {
+      document.querySelector(`.board-row-${attempts}`).animate(
+        {
+          transform: [
+            "translateX(5px)",
+            "translateX(-5px)",
+            "translateX(5px)",
+            "translateX(-5px)",
+            "translateX(0px)",
+          ],
+        },
+        {
+          duration: 800, // 밀리초 지정
+          fill: "forwards", // 종료 시 속성을 지님
+          easing: "linear", // 가속도 종류
+        }
+      );
+    }
     nextLine();
   };
 
