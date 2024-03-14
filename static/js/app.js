@@ -1,5 +1,4 @@
 // 초기값
-const 정답 = "APPLE";
 let attempts = 0;
 let index = 0;
 let timer;
@@ -36,8 +35,13 @@ function appStart() {
   };
 
   // EnterKey 입력함수
-  const handleEnterKey = () => {
+  const handleEnterKey = async () => {
     let 맞은_갯수 = 0;
+    const 응답 = await fetch("/answer");
+    const 정답_객체 = await 응답.json();
+    const 정답 = 정답_객체.answer;
+    //const 정답 = await 응답.json();
+
     for (let i = 0; i < 5; i++) {
       const block = document.querySelector(
         `.board-column[data-index='${attempts}${i}']`
